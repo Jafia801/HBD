@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 🎉</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  height:100vh;
+  background:radial-gradient(circle at top,#1f3c88,#070d2d);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  color:white;
+}
+
+/* Loading */
+#loader{
+  position:absolute;
+  inset:0;
+  background:black;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  z-index:10;
+  animation:fadeOut 3s forwards;
+}
+
+@keyframes fadeOut{
+  0%{opacity:1}
+  80%{opacity:1}
+  100%{opacity:0;pointer-events:none}
+}
+
+/* Main */
+#main{
+  text-align:center;
+  opacity:0;
+  animation:show 1s ease forwards;
+  animation-delay:3s;
+}
+
+@keyframes show{
+  to{opacity:1}
+}
+
+/* Cake Image */
+#cake{
+  width:220px;
+  cursor:pointer;
+  animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+  100%{transform:translateY(0)}
+}
+
+.click{
+  margin-top:15px;
+  opacity:.9;
+}
+
+/* Letter */
+#letter{
+  display:none;
+  max-width:340px;
+  margin-top:30px;
+  padding:20px;
+  background:rgba(255,255,255,.12);
+  border-radius:18px;
+  animation:fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.cursor{
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  50%{opacity:0}
+}
+
+/* Hearts */
+.heart{
+  position:absolute;
+  color:#ff4d6d;
+  animation:floatHeart 5s linear infinite;
+}
+
+@keyframes floatHeart{
+  from{transform:translateY(100vh);opacity:1}
+  to{transform:translateY(-10vh);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader">🎁 Surprise loading… please wait</div>
+
+<div id="main">
+  <img src="cake.png" id="cake" onclick="showLetter()">
+  <div class="click">Click on the cake 🎂</div>
+
+  <div id="letter"></div>
+</div>
+
+<script>
+const message =
+"Happy 17th Birthday, Hadi 💗\n\n" +
+"I might not be there to kiss you today,\n" +
+"but every heartbeat is sending you my love.\n\n" +
+"You are mine, no matter how far.\n\n" +
+"— Jafia 💞\n\n" +
+new Date().toLocaleString();
+
+function showLetter(){
+  document.getElementById("cake").style.display="none";
+  document.querySelector(".click").style.display="none";
+
+  const box = document.getElementById("letter");
+  box.style.display="block";
+
+  let i=0;
+  const interval=setInterval(()=>{
+    box.innerHTML = message.slice(0,i) + "<span class='cursor'>|</span>";
+    i++;
+    if(i>message.length) clearInterval(interval);
+  },40);
+}
+
+/* Hearts */
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(Math.random()*18+12)+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),5000);
+},400);
+</script>
+
+</body>
+</html>
